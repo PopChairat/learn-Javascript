@@ -29,7 +29,7 @@ let morseCharObj = {
   "-.--": "Y",
   "--..": "Z",
 };
-decodeMorse = function (morseCode) {
+decodeMorse = function (morseCode = "") {
   if (morseCode) {
     let result = "";
     let morseWords = morseCode.trim().split("   ");
