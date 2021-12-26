@@ -22,18 +22,22 @@ document.querySelector('#body').addEventListener('load', initValue());
 document.querySelector('.again').addEventListener('click', () => initValue());
 
 const updateScore = msg => {
-  document.querySelector('.message').textContent = msg;
+  displayMessage(msg);
   let numStr = document.querySelector('.score').textContent;
   let num = Number(numStr);
-  if (num > 0) {
-    num -= 1;
-    document.querySelector('.score').textContent = num;
-  } else {
-    document.querySelector('.message').textContent = 'You lost the game!';
+  num -= 1;
+  if (num <= 0) {
+    displayMessage('You lost the game!');
     isEndGame = true;
     document.getElementById('body').style.backgroundColor = 'red';
   }
+  document.querySelector('.score').textContent = num;
 };
+
+const displayMessage = msg => {
+  document.querySelector('.message').textContent = msg;
+};
+
 //Clicked
 document.querySelector('.check').addEventListener('click', () => {
   //logic when clicked
@@ -43,9 +47,9 @@ document.querySelector('.check').addEventListener('click', () => {
     let guessNum = Number(guessNumStr);
     if (guessNum === correctNum) {
       isEndGame = true;
+      displayMessage('Correct Number!');
       console.log('guessNum === correctNum');
       document.querySelector('.number').textContent = correctNum;
-      document.querySelector('.message').textContent = 'Correct Number!';
       document.getElementById('body').style.backgroundColor = 'green';
       let highScore = Number(document.querySelector('.highscore').textContent);
       let currentScore = Number(document.querySelector('.score').textContent);
@@ -54,12 +58,12 @@ document.querySelector('.check').addEventListener('click', () => {
       }
     } else if (guessNum > correctNum) {
       updateScore('Too high!');
-      console.log('uessNum > correctNum');
+      console.log('gessNum > correctNum');
     } else if (guessNum < correctNum) {
       updateScore('Too low!');
       console.log('guessNum < correctNum');
     }
   } else {
-    document.querySelector('.message').textContent = 'No Number!';
+    displayMessage('No Number!');
   }
 });
